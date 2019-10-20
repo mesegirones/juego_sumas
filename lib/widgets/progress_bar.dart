@@ -5,14 +5,22 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (ctx, constrains) {
       return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(
-              top: 45,
+            child: IconButton(
+              icon: Icon(Icons.close),
+              color: Colors.blue,
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed('./');
+              },
             ),
+          ),
+          Container(
+            // margin: EdgeInsets.only(top: 45),
             height: 15,
-            width: constrains.maxWidth * 0.9,
+            width: constrains.maxWidth * 0.8,
             child: Stack(
               children: <Widget>[
                 Container(

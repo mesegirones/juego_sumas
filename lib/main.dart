@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
-import './widgets/progress_bar.dart';
-import './widgets/operation.dart';
+import 'package:provider/provider.dart';
+import './providers/level.dart';
+import './screens/main_screen.dart';
+import './screens/operation_screen.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter App',
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            ProgressBar(),
-            Operation(),
-          ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: Levels(),
         ),
+      ],
+      child: MaterialApp(
+        title: 'Juego sumas',
+        home: MainScreen(),
+        routes: {
+          OperationScreen.routeName: (ctx) => OperationScreen(),
+          MainScreen.routName: (ctx) => MainScreen(),
+        },
       ),
     );
   }
