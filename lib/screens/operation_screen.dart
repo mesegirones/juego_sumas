@@ -11,32 +11,52 @@ class OperationScreen extends StatefulWidget {
 }
 
 class _OperationScreenState extends State<OperationScreen> {
-  List<int> _results = [0, 0]; 
+  List<int> _results = [0, 0];
 
   int _result1 = 0;
   int _result2 = 0;
 
   void getResults(int value, int index) {
     setState(() {
-     _result1 = value;
+      _result1 = value;
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 30),
+          Container(
+            child: ProgressBar(0.5),
+            alignment: Alignment.center,
+            height: mediaQuery.size.height * 0.15,
           ),
-          ProgressBar(),
-          Padding(
-            padding: EdgeInsets.only(top: 50),
+          Container(
+            child: Operation(_result1, _result2),
+            alignment: Alignment.center,
+            height: mediaQuery.size.height * 0.45,
           ),
-          Operation(_result1, _result2),
-          Options(getResults),
+          Container(
+            height: mediaQuery.size.height * 0.05,
+          ),
+          Container(
+            child: Options(getResults),
+            height: mediaQuery.size.height * 0.25,
+            alignment: Alignment.bottomCenter,
+            padding: EdgeInsets.symmetric(horizontal: 15),
+          ),
+          Container(
+            height: mediaQuery.size.height * 0.1,
+            padding: EdgeInsets.all(15),
+            child: FlatButton(
+              color: Colors.green,
+              child: Text('Submit'),
+              onPressed: () {},
+            ),
+          )
         ],
       ),
     );

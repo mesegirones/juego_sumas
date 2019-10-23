@@ -7,8 +7,12 @@ class Operation extends StatelessWidget {
   Operation(this.result1, this.result2);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+    final mediaQuery = MediaQuery.of(context);
+    return Wrap(
+      direction: Axis.vertical,
+      alignment: WrapAlignment.end,
+      crossAxisAlignment: WrapCrossAlignment.end,
+      // crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text(
           '13',
@@ -19,15 +23,9 @@ class Operation extends StatelessWidget {
           style: TextStyle(fontSize: 76),
         ),
         Container(
-          width: 150,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                width: 3,
-                color: Colors.black,
-              ),
-            ),
-          ),
+          width: mediaQuery.size.width * 0.35,
+          height: 3,
+          color: Colors.black,
         ),
         Text(
           '${result2}${result1}',

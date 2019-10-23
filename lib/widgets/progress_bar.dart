@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatelessWidget {
+  final double step; 
+
+  ProgressBar(this.step);
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (ctx, constrains) {
@@ -9,6 +13,7 @@ class ProgressBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
+            width: constrains.maxWidth * 0.1,
             child: IconButton(
               icon: Icon(Icons.close),
               color: Colors.blue,
@@ -33,7 +38,7 @@ class ProgressBar extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10)),
                 ),
                 FractionallySizedBox(
-                  widthFactor: 0.6,
+                  widthFactor: step,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,

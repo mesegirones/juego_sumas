@@ -7,25 +7,29 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     final levelsData = Provider.of<Levels>(context);
     return Scaffold(
-      body: Container(
-        width: 150,
-        child: ListView.builder(
-          padding: EdgeInsets.symmetric(vertical: 15),
-          itemCount: levelsData.levels.length,
-          itemBuilder: (ctx, i) => ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              height: 100,
-              margin: EdgeInsets.all(20),
-              child: FlatButton(
-                shape: StadiumBorder(),
-                child: Text(levelsData.levels[i].id),
-                onPressed: (){
-                  Navigator.of(context).pushReplacementNamed('./operation');
-                },
-                color: Colors.blue,
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.all(5),
+          alignment: Alignment.center,
+          width: mediaQuery.size.width * 0.45,
+          child: ListView.builder(
+            itemCount: levelsData.levels.length,
+            itemBuilder: (ctx, i) => Container(
+              height: 150,
+              width: 95,
+              margin: EdgeInsets.all(15),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(150),
+                child: FlatButton(
+                  child: Text(levelsData.levels[i].id),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('./operation');
+                  },
+                  color: Colors.blue,
+                ),
               ),
             ),
           ),
