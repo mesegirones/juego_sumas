@@ -16,7 +16,7 @@ class Options extends StatelessWidget {
           width: 60,
           child: FlatButton(
           shape: StadiumBorder(),
-          color: Theme.of(context).primaryColor,
+          color: Colors.blue[200],
           textColor: Colors.white,
           onPressed: () {
             getResults(index, 0);

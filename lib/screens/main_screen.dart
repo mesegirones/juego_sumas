@@ -28,7 +28,7 @@ class MainScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pushReplacementNamed('./operation');
                   },
-                  color: Colors.blue,
+                  color: Colors.blue[200],
                 ),
               ),
             ),

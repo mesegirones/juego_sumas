@@ -1,34 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/level.dart';
 
 class Operation extends StatelessWidget {
-  final int result1; 
-  final int result2;
+  final String levelId;
+  final List<int> results;
 
-  Operation(this.result1, this.result2);
+  Operation(this.levelId, this.results);
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+
+    final levelData = Provider.of<Levels>(context).getCurrentLevel(levelId);
+
+    print(levelData.id);
+
+    Widget getText(numbers, isBottom) {
+      String newNumber = '';
+      if(isBottom){
+        newNumber = '+  ';
+      }
+      numbers.forEach(
+        (n) => newNumber = '$newNumber$n',
+      );
+
+      return Text(
+        newNumber,
+        style: TextStyle(fontSize: 76),
+      );
+    }
+
     return Wrap(
       direction: Axis.vertical,
       alignment: WrapAlignment.end,
       crossAxisAlignment: WrapCrossAlignment.end,
       // crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        Text(
-          '13',
-          style: TextStyle(fontSize: 76),
-        ),
-        Text(
-          '+  7',
-          style: TextStyle(fontSize: 76),
-        ),
+        getText(levelData.topNumber, false),
+       getText(levelData.bottomNumber, true),
         Container(
           width: mediaQuery.size.width * 0.35,
           height: 3,
           color: Colors.black,
         ),
         Text(
-          '${result2}${result1}',
+          '${results[0]}${results[1]}',
           style: TextStyle(fontSize: 76),
         ),
       ],

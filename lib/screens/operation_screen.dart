@@ -5,7 +5,7 @@ import '../widgets/progress_bar.dart';
 
 class OperationScreen extends StatefulWidget {
   static const routeName = './operation';
-
+  
   @override
   _OperationScreenState createState() => _OperationScreenState();
 }
@@ -13,12 +13,17 @@ class OperationScreen extends StatefulWidget {
 class _OperationScreenState extends State<OperationScreen> {
   List<int> _results = [0, 0];
 
-  int _result1 = 0;
-  int _result2 = 0;
+  String _levelId = 'level1';
 
-  void getResults(int value, int index) {
+  void _getResults(int value, int index) {
     setState(() {
-      _result1 = value;
+     _results[1] = value;
+    });
+  }
+
+  void _nextStep(){
+    setState(() {
+      _levelId = 'level2';
     });
   }
 
@@ -35,7 +40,7 @@ class _OperationScreenState extends State<OperationScreen> {
             height: mediaQuery.size.height * 0.15,
           ),
           Container(
-            child: Operation(_result1, _result2),
+            child: Operation(_levelId, _results),
             alignment: Alignment.center,
             height: mediaQuery.size.height * 0.45,
           ),
@@ -43,7 +48,7 @@ class _OperationScreenState extends State<OperationScreen> {
             height: mediaQuery.size.height * 0.05,
           ),
           Container(
-            child: Options(getResults),
+            child: Options(_getResults),
             height: mediaQuery.size.height * 0.25,
             alignment: Alignment.bottomCenter,
             padding: EdgeInsets.symmetric(horizontal: 15),
@@ -52,9 +57,12 @@ class _OperationScreenState extends State<OperationScreen> {
             height: mediaQuery.size.height * 0.1,
             padding: EdgeInsets.all(15),
             child: FlatButton(
-              color: Colors.green,
+              color: Colors.green[200],
+              shape: StadiumBorder(),
               child: Text('Submit'),
-              onPressed: () {},
+              onPressed: () {
+                _nextStep();
+              },
             ),
           )
         ],

@@ -16,7 +16,7 @@ class ProgressBar extends StatelessWidget {
             width: constrains.maxWidth * 0.1,
             child: IconButton(
               icon: Icon(Icons.close),
-              color: Colors.blue,
+              color: Colors.blue[200],
               onPressed: () {
                 Navigator.of(context).pushReplacementNamed('./');
               },
@@ -31,7 +31,7 @@ class ProgressBar extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                       border: Border.all(
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.blue[200],
                         width: 1.0,
                       ),
                       color: Color.fromRGBO(220, 220, 220, 1),
@@ -41,7 +41,7 @@ class ProgressBar extends StatelessWidget {
                   widthFactor: step,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.blue[200],
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
