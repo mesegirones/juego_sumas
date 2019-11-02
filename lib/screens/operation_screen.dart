@@ -12,6 +12,7 @@ class OperationScreen extends StatefulWidget {
 
 class _OperationScreenState extends State<OperationScreen> {
   List<int> _results = [0, 0];
+  double step = 0; 
 
   String _levelId = 'level1';
 

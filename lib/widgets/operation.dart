@@ -14,11 +14,9 @@ class Operation extends StatelessWidget {
 
     final levelData = Provider.of<Levels>(context).getCurrentLevel(levelId);
 
-    print(levelData.id);
-
     Widget getText(numbers, isBottom) {
       String newNumber = '';
-      if(isBottom){
+      if (isBottom) {
         newNumber = '+  ';
       }
       numbers.forEach(
@@ -38,17 +36,60 @@ class Operation extends StatelessWidget {
       // crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         getText(levelData.topNumber, false),
-       getText(levelData.bottomNumber, true),
+        getText(levelData.bottomNumber, true),
         Container(
           width: mediaQuery.size.width * 0.35,
           height: 3,
           color: Colors.black,
         ),
-        Text(
-          '${results[0]}${results[1]}',
-          style: TextStyle(fontSize: 76),
+        // Text(
+        //   '${results[0]}${results[1]}',
+        //   style: TextStyle(fontSize: 76),
+        // ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Container(
+              height: 70,
+              width: mediaQuery.size.width * 0.11,
+              child: TextField(
+                focusNode: AlwaysDisabledFocusNode(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.00),
+                  ),
+                ),
+                style: TextStyle(fontSize: 35),
+                // onChanged: (text) {
+                //   print("First text field: $text");
+                // },
+              ),
+            ),
+            Container(
+              height: 70,
+              width: mediaQuery.size.width * 0.11,
+              margin: EdgeInsets.only(left: 5),
+              child: TextField(
+                focusNode: AlwaysDisabledFocusNode(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.00),
+                  ),
+                ),
+                style: TextStyle(fontSize: 35),
+                // onChanged: (text) {
+                //   print("First text field: $text");
+                // },
+              ),
+            ),
+          ],
         ),
       ],
     );
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
