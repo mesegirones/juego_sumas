@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/exercices.dart';
 
 class Options extends StatelessWidget {
-  final Function getResults; 
 
-  Options(this.getResults);
   @override
   Widget build(BuildContext context) {
+     final updateResult = Provider.of<Exercices>(context, listen: false);
+
     return GridView.count(
       crossAxisCount: 5,
       mainAxisSpacing: 10,
@@ -19,7 +21,7 @@ class Options extends StatelessWidget {
           color: Colors.blue[200],
           textColor: Colors.white,
           onPressed: () {
-            getResults(index, 0);
+            updateResult.insertResult('ex1', index, 1);
           },
           child: Text(
             '$index',

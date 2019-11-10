@@ -1,4 +1,4 @@
-#Wed Oct 30 20:37:45 CET 2019
+#Sun Nov 10 13:40:30 CET 2019
 base.0=C\:\\Users\\administrador1\\Desktop\\flutter\\juego_sumas_master\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex

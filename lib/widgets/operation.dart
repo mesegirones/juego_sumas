@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/level.dart';
+import '../providers/exercices.dart';
 
 class Operation extends StatelessWidget {
-  final String levelId;
-  final List<int> results;
+  final String exerciceId;
 
-  Operation(this.levelId, this.results);
+  Operation(this.exerciceId);
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
 
-    final levelData = Provider.of<Levels>(context).getCurrentLevel(levelId);
+    final exerciceData = Provider.of<Exercices>(context,listen: false).getCurrentExercice(exerciceId); // TODO: change to GetNumbers() 
+    final updateResult = Provider.of<Exercices>(context);
+
+    final resultController1 = TextEditingController();
+    final resultController0 = TextEditingController();
+
+    resultController1.text = exerciceData.result[1].toString();
+    resultController0.text = exerciceData.result[0].toString();
 
     Widget getText(numbers, isBottom) {
       String newNumber = '';
@@ -22,7 +28,6 @@ class Operation extends StatelessWidget {
       numbers.forEach(
         (n) => newNumber = '$newNumber$n',
       );
-
       return Text(
         newNumber,
         style: TextStyle(fontSize: 76),
@@ -35,24 +40,22 @@ class Operation extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.end,
       // crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        getText(levelData.topNumber, false),
-        getText(levelData.bottomNumber, true),
+        getText(exerciceData.topNumber, false),
+        getText(exerciceData.bottomNumber, true),
         Container(
           width: mediaQuery.size.width * 0.35,
           height: 3,
           color: Colors.black,
         ),
-        // Text(
-        //   '${results[0]}${results[1]}',
-        //   style: TextStyle(fontSize: 76),
-        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Container(
-              height: 70,
+              height: 85,
               width: mediaQuery.size.width * 0.11,
+              margin: EdgeInsets.only(top: 5),
               child: TextField(
+                controller: resultController0,
                 focusNode: AlwaysDisabledFocusNode(),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -60,16 +63,17 @@ class Operation extends StatelessWidget {
                   ),
                 ),
                 style: TextStyle(fontSize: 35),
-                // onChanged: (text) {
-                //   print("First text field: $text");
-                // },
+                 onChanged: (value) {
+                  updateResult.insertResult(exerciceId, int.parse(value), 1);
+                },
               ),
             ),
             Container(
-              height: 70,
+              height: 85,
               width: mediaQuery.size.width * 0.11,
-              margin: EdgeInsets.only(left: 5),
+              margin: EdgeInsets.only(left: 5, top: 5),
               child: TextField(
+                controller: resultController1,
                 focusNode: AlwaysDisabledFocusNode(),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -77,9 +81,9 @@ class Operation extends StatelessWidget {
                   ),
                 ),
                 style: TextStyle(fontSize: 35),
-                // onChanged: (text) {
-                //   print("First text field: $text");
-                // },
+                onChanged: (value) {
+                  updateResult.insertResult(exerciceId, int.parse(value), 0);
+                },
               ),
             ),
           ],

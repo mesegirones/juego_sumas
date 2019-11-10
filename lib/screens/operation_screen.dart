@@ -1,47 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/exercices.dart';
 import '../widgets/options.dart';
 import '../widgets/operation.dart';
 import '../widgets/progress_bar.dart';
 
-class OperationScreen extends StatefulWidget {
+class OperationScreen extends StatelessWidget {
   static const routeName = './operation';
-  
-  @override
-  _OperationScreenState createState() => _OperationScreenState();
-}
-
-class _OperationScreenState extends State<OperationScreen> {
-  List<int> _results = [0, 0];
-  double step = 0; 
-
-  String _levelId = 'level1';
-
-  void _getResults(int value, int index) {
-    setState(() {
-     _results[1] = value;
-    });
-  }
-
-  void _nextStep(){
-    setState(() {
-      _levelId = 'level2';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    final exId = Provider.of<Exercices>(context).getExId();
+    final nextId = Provider.of<Exercices>(context, listen: false);
 
     return Scaffold(
       body: Column(
         children: <Widget>[
           Container(
-            child: ProgressBar(0.5),
+            child: ProgressBar(exId),
             alignment: Alignment.center,
             height: mediaQuery.size.height * 0.15,
           ),
           Container(
-            child: Operation(_levelId, _results),
+            child: Operation(exId),
             alignment: Alignment.center,
             height: mediaQuery.size.height * 0.45,
           ),
@@ -49,7 +30,7 @@ class _OperationScreenState extends State<OperationScreen> {
             height: mediaQuery.size.height * 0.05,
           ),
           Container(
-            child: Options(_getResults),
+            child: Options(),
             height: mediaQuery.size.height * 0.25,
             alignment: Alignment.bottomCenter,
             padding: EdgeInsets.symmetric(horizontal: 15),
@@ -62,7 +43,7 @@ class _OperationScreenState extends State<OperationScreen> {
               shape: StadiumBorder(),
               child: Text('Submit'),
               onPressed: () {
-                _nextStep();
+               nextId.increaseIndex();
               },
             ),
           )
