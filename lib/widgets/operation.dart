@@ -17,6 +17,7 @@ class Operation extends StatelessWidget {
     final resultController1 = TextEditingController();
     final resultController0 = TextEditingController();
 
+
     resultController1.text = exerciceData.result[1].toString();
     resultController0.text = exerciceData.result[0].toString();
 
@@ -64,7 +65,7 @@ class Operation extends StatelessWidget {
                 ),
                 style: TextStyle(fontSize: 35),
                  onChanged: (value) {
-                  updateResult.insertResult(exerciceId, int.parse(value), 1);
+                  // updateResult.insertResult(exerciceId, int.parse(value), 1);
                 },
               ),
             ),
@@ -82,7 +83,7 @@ class Operation extends StatelessWidget {
                 ),
                 style: TextStyle(fontSize: 35),
                 onChanged: (value) {
-                  updateResult.insertResult(exerciceId, int.parse(value), 0);
+                  // updateResult.insertResult(exerciceId, int.parse(value), 0);
                 },
               ),
             ),

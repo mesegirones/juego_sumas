@@ -38,7 +38,7 @@ class Exercices with ChangeNotifier {
 
   int _exIndex = 0;
 
-  List<Exercice> get levels {
+  List<Exercice> get exercices {
     return [..._exercices];
   }
 
@@ -52,7 +52,7 @@ class Exercices with ChangeNotifier {
     return progress;
   }
 
-  List<int> getNumbers(String currentId, String type) {
+  List<int> getNumbers(String currentId, String type) {               
     var index = _exercices.indexWhere((e) => e.id == currentId);
     var number = _exercices.elementAt(index);
 
@@ -60,18 +60,24 @@ class Exercices with ChangeNotifier {
       return number.topNumber;
     } else if (type == 'bottom') {
       return number.bottomNumber;
+    } else if(type == 'result'){
+      return number.result;
     }
   }
 
   void insertResult(String currentId, int newNumber, int resultIndex) {
     var index = _exercices.indexWhere((e) => e.id == currentId);
     _exercices.elementAt(index).result.insert(resultIndex, newNumber);
+    print(_exercices.elementAt(index).result);
     notifyListeners();
   }
 
   String getExId() {
-    // print(_exercices.elementAt(exIndex).id);
     return _exercices.elementAt(_exIndex).id;
+  }
+
+  int getIndex() {
+    return _exIndex;
   }
 
   void increaseIndex(){

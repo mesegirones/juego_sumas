@@ -11,7 +11,23 @@ class OperationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final exId = Provider.of<Exercices>(context).getExId();
-    final nextId = Provider.of<Exercices>(context, listen: false);
+    final exData = Provider.of<Exercices>(context, listen: false);
+
+    void nextStep() {
+      var currentIndex = exData.getIndex();
+      if (exData.exercices.length - 1 == currentIndex) {
+        Navigator.of(context).pushReplacementNamed('./');
+      } else {
+        List<int> topNumber = exData.getNumbers(exId, 'top');
+        List<int> bottomNumber = exData.getNumbers(exId, 'bottom');
+        List<int> results = exData.getNumbers(exId, 'result');
+
+        if (topNumber[0]  == results[0] && topNumber[1] + bottomNumber[0] == results[1]) {
+          exData.increaseIndex();
+          // print('WELL DONE');
+        }
+      }
+    }
 
     return Scaffold(
       body: Column(
@@ -30,7 +46,7 @@ class OperationScreen extends StatelessWidget {
             height: mediaQuery.size.height * 0.05,
           ),
           Container(
-            child: Options(),
+            child: Options(exId),
             height: mediaQuery.size.height * 0.25,
             alignment: Alignment.bottomCenter,
             padding: EdgeInsets.symmetric(horizontal: 15),
@@ -43,7 +59,7 @@ class OperationScreen extends StatelessWidget {
               shape: StadiumBorder(),
               child: Text('Submit'),
               onPressed: () {
-               nextId.increaseIndex();
+                nextStep();
               },
             ),
           )
